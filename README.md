@@ -35,12 +35,12 @@ Our configuration is currently set to the following:
 
 ### 1. Adding the SDK dependency
 
-Starting on version `1.1.1` you can integrate it:
+Starting on version `1.1.3` you can integrate it:
 
 
 ```app-gradle
 dependencies {
-    implementation 'com.argyle:app:1.1.1'
+    implementation 'com.argyle:app:1.1.3'
 }
 ```
 
