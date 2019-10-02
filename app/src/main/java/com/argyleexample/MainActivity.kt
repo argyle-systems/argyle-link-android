@@ -2,103 +2,56 @@ package com.argyleexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.preference.PreferenceManager
 import android.util.Log
 
 import com.argyle.ArgyleConfig
 
 import kotlinx.android.synthetic.main.main_activity.*
-import android.preference.PreferenceManager
 import com.argyle.Argyle
 import com.argyle.ArgyleErrorType
 
+private const val TAG = "MainActivity"
+
+private const val PLUGIN_KEY = "6d77b75b-116f-466c-b5fe-08094bb419d3"
+private const val API_HOST = "https://api-sandbox.develop.argyle.io/v1/"
+
+private const val PREF_USER_TOKEN = "userToken"
+private const val PREF_USER_ID = "userId"
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        configureArgyleSdk(null)
+
         newWorkerButton?.setOnClickListener {
+            Argyle.instance.config.userToken = null // nullify user token
             openSdk()
         }
 
         existingButton?.setOnClickListener {
-            val argyle = Argyle.instance
             val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-            val token = preferences.getString("workerToken", "")
-            val pluginKey = "646dc138-5942-4eb6-a9ca-dd01b6d57ae9"
-            val apiHost = "https://api-sandbox.develop.argyle.io/v1/"
-            if (!token.equals("", ignoreCase = true)) {
-                val config = ArgyleConfig.Builder()
-                    //.dataPartners(arrayOf("uber", "deliv"))
-                    .loginWith(pluginKey, apiHost, token)
-                    .setCallbackListener(object : Argyle.ArgyleResultListener {
-                        override fun onTokenExpired(handler: (String) -> Unit) {
-                            val token = "token"
-                            handler(token)
-
-                        }
-
-                        override fun onAccountConnected(accountId: String, workerId: String) {
-                            Log.d("Result", "onAccountConnected: accountId: $accountId workerId: $workerId")
-                        }
-
-                        override fun onAccountRemoved(accountId: String, workerId: String) {
-                            Log.d("Result", "onAccountRemoved: accountId: $accountId workerId: $workerId")
-                        }
-
-                        override fun onError(error: ArgyleErrorType) {
-                            super.onError(error)
-                            Log.d("Result", "onError: error: $error")
-                        }
-
-                        override fun onWorkerCreated(workerToken: String, workerId: String) {
-                            Log.d("Result", "onWorkerCreated:  workerId: $workerId workerToken: $workerToken")
-                        }
-                    })
-                    .build()
-                argyle.init(config)
-            } else {
-                val config = ArgyleConfig.Builder()
-                    //.dataPartners(arrayOf("uber", "deliv"))
-                    .loginWith(pluginKey, apiHost)
-                    .setCallbackListener(object : Argyle.ArgyleResultListener {
-                        override fun onTokenExpired(handler: (String) -> Unit) {
-                            val token = "token"
-                            handler(token)
-                        }
-
-                        override fun onAccountConnected(accountId: String, workerId: String) {
-                            Log.d("Result", "onAccountConnected: accountId: $accountId workerId: $workerId")
-                        }
-
-                        override fun onAccountRemoved(accountId: String, workerId: String) {
-                            Log.d("Result", "onAccountRemoved: accountId: $accountId workerId: $workerId")
-                        }
-
-                        override fun onError(error: ArgyleErrorType) {
-                            super.onError(error)
-                            Log.d("Result", "onError: error: $error")
-                        }
-
-                        override fun onWorkerCreated(workerToken: String, workerId: String) {
-                            Log.d("Result", "onWorkerCreated:  workerId: $workerId workerToken: $workerToken")
-                        }
-                    })
-
-                    .build()
-                argyle.init(config)
-            }
-            Argyle.instance.startSDK(this)
+            val token = preferences.getString(PREF_USER_TOKEN, null)
+            Argyle.instance.config.userToken = token // change user token
+            openSdk()
         }
-
     }
 
     private fun openSdk() {
-        val apiHost = "https://api-sandbox.develop.argyle.io/v1/"
-        val pluginKey = "646dc138-5942-4eb6-a9ca-dd01b6d57ae9"
+        Argyle.instance.startSDK(this)
+    }
+
+    private fun configureArgyleSdk(token: String? = null) {
         val argyle = Argyle.instance
+
+        Log.d(TAG, "openSdk with token : $token")
+
         val config = ArgyleConfig.Builder()
+
+            .loginWith(PLUGIN_KEY, API_HOST, token)
             //.dataPartners(arrayOf("uber", "deliv"))
-            .loginWith(pluginKey, apiHost)
             .setCallbackListener(object : Argyle.ArgyleResultListener {
 
                 override fun onTokenExpired(handler: (String) -> Unit) {
@@ -106,31 +59,34 @@ class MainActivity : AppCompatActivity() {
                     handler(token)
                 }
 
-                override fun onAccountConnected(accountId: String, workerId: String) {
-                    Log.d("Result", "onAccountConnected: accountId: $accountId workerId: $workerId")
+                override fun onAccountConnected(accountId: String, userId: String) {
+                    Log.d(TAG, "onAccountConnected: accountId: $accountId workerId: $userId")
                 }
 
-                override fun onAccountRemoved(accountId: String, workerId: String) {
-                    Log.d("Result", "onAccountRemoved: accountId: $accountId workerId: $workerId")
+                override fun onAccountRemoved(accountId: String, userId: String) {
+                    Log.d(TAG, "onAccountRemoved: accountId: $accountId workerId: $userId")
                 }
 
                 override fun onError(error: ArgyleErrorType) {
-                    super.onError(error)
-                    Log.d("Result", "onError: error: $error")
+                    Log.d(TAG, "onError: error: $error")
                 }
 
-                override fun onWorkerCreated(workerToken: String, workerId: String) {
-                    val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                override fun onUserCreated(userToken: String, userId: String) {
+                    val preferences =
+                        PreferenceManager.getDefaultSharedPreferences(applicationContext)
                     val editor = preferences.edit()
-                    editor.clear().commit()
-                    editor.putString("workerToken", workerToken)
-                    editor.putString("workerId", workerId)
+                    editor.putString(PREF_USER_TOKEN, userToken)
+                    editor.putString(PREF_USER_ID, userId)
                     editor.apply()
-                    Log.d("Result", "onWorkerCreated:  workerId: $workerId workerToken: $workerToken")
+                    Log.d(
+                        TAG,
+                        "onUserCreated:  userId: $userId userToken: $userToken"
+                    )
                 }
             })
             .build()
+
         argyle.init(config)
-        Argyle.instance.startSDK(this)
     }
+
 }

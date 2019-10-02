@@ -8,7 +8,7 @@
 
 ## Overview
 
-This SDK provides a drop-in set of screens and tools for Android applications Argyle lets your customers share with you their worker-specific data from the workforce platforms, such as Uber, Postmates, Doordash and others. 
+This SDK provides a drop-in set of screens and tools for Android applications Argyle lets your customers share with you their 0-specific data from the workforce platforms, such as Uber, Postmates, Doordash and others. 
 
 It works in the following way:
 
@@ -35,12 +35,12 @@ Our configuration is currently set to the following:
 
 ### 1. Adding the SDK dependency
 
-Starting on version `1.1.3` you can integrate it:
+Starting on version `1.1.4` you can integrate it:
 
 
 ```app-gradle
 dependencies {
-    implementation 'com.argyle:app:1.1.3'
+    implementation 'com.argyle:app:1.1.4'
 }
 ```
 
@@ -60,12 +60,12 @@ Kotlin
                             handler(token)
                         }
 
-                        override fun onAccountConnected(accountId: String, workerId: String) {
-                            Log.d("Result", "onAccountConnected: accountId: $accountId workerId: $workerId")
+                        override fun onAccountConnected(accountId: String, userId: String) {
+                            Log.d("Result", "onAccountConnected: accountId: $accountId userId: $userId")
                         }
 
-                        override fun onAccountRemoved(accountId: String, workerId: String) {
-                            Log.d("Result", "onAccountRemoved: accountId: $accountId workerId: $workerId")
+                        override fun onAccountRemoved(accountId: String, userId: String) {
+                            Log.d("Result", "onAccountRemoved: accountId: $accountId userId: $userId")
                         }
 
                         override fun onError(error: ArgyleErrorType) {
@@ -73,8 +73,8 @@ Kotlin
                             Log.d("Result", "onError: error: $error")
                         }
 
-                        override fun onWorkerCreated(workerToken: String, workerId: String) {
-                            Log.d("Result", "onWorkerCreated:  workerId: $workerId workerToken: $workerToken")
+                        override fun onUserCreated(userToken: String, userId: String) {
+                            Log.d("Result", "onUserCreated:  userId: $userId userToken: $userToken")
                         }
                     })
                     .build()
