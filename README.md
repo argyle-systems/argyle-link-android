@@ -37,7 +37,7 @@ Our configuration is currently set to the following:
 
 ```app-gradle
 dependencies {
-    implementation 'com.argyle:app:1.2.0'
+    implementation 'com.argyle:app:1.2.1'
 }
 ```
 
