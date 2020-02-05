@@ -51,7 +51,8 @@ class MainActivity : AppCompatActivity() {
         val config = ArgyleConfig.Builder()
 
             .loginWith(PLUGIN_KEY, API_HOST, token)
-            //.dataPartners(arrayOf("uber", "deliv"))
+            .companyName("My Company")
+//            .dataPartners(arrayOf("uber", "deliv"))
             .setCallbackListener(object : Argyle.ArgyleResultListener {
 
                 override fun onTokenExpired(handler: (String) -> Unit) {

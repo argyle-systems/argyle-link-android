@@ -23,7 +23,7 @@ We recommend you to lock your app to a portrait orientation.
 ## Getting started
 
 
-The SDK supports API level 18 and above ([distribution stats](https://developer.android.com/about/dashboards/index.html)).
+The SDK supports API level 19 and above ([distribution stats](https://developer.android.com/about/dashboards/index.html)).
 
 Our configuration is currently set to the following:
 
@@ -35,12 +35,9 @@ Our configuration is currently set to the following:
 
 ### 1. Adding the SDK dependency
 
-Starting on version `1.1.10` you can integrate it:
-
-
 ```app-gradle
 dependencies {
-    implementation 'com.argyle:app:1.1.10'
+    implementation 'com.argyle:app:1.2.0'
 }
 ```
 
@@ -54,6 +51,7 @@ Kotlin
     val config = ArgyleConfig.Builder()
                     .loginWith("pluginKey","apiHost", "token") //token required just in JAVA. 
                     .dataPartners(arrayOf("uber", "deliv")) // Your selected data partners.
+                    .companyName("My Company) // Name of your company
                     .setCallbackListener(object : Argyle.ArgyleResultListener {
                         override fun onTokenExpired(handler: (String) -> Unit) {
                             val token = "token" //Get new token
