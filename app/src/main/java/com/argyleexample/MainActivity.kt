@@ -13,8 +13,8 @@ import com.argyle.ArgyleErrorType
 
 private const val TAG = "MainActivity"
 
-private const val PLUGIN_KEY = "6d77b75b-116f-466c-b5fe-08094bb419d3"
-private const val API_HOST = "https://api-sandbox.develop.argyle.io/v1/"
+private const val PLUGIN_KEY = "YOUR_PLUGIN_KEY"
+private const val API_HOST = "https://api-sandbox.argyle.io/v1/"
 
 private const val PREF_USER_TOKEN = "userToken"
 private const val PREF_USER_ID = "userId"
@@ -83,6 +83,10 @@ class MainActivity : AppCompatActivity() {
                         TAG,
                         "onUserCreated:  userId: $userId userToken: $userToken"
                     )
+                }
+
+                override fun onClose() {
+                    Log.d(TAG, "onClose")
                 }
             })
             .build()
