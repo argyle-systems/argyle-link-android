@@ -60,12 +60,20 @@ class MainActivity : AppCompatActivity() {
                     handler(token)
                 }
 
-                override fun onAccountConnected(accountId: String, userId: String) {
-                    Log.d(TAG, "onAccountConnected: accountId: $accountId workerId: $userId")
+                override fun onAccountCreated(accountId: String, userId: String, dataPartner:String) {
+                    Log.d(TAG, "onAccountCreated: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
                 }
 
-                override fun onAccountRemoved(accountId: String, userId: String) {
-                    Log.d(TAG, "onAccountRemoved: accountId: $accountId workerId: $userId")
+                override fun onAccountConnected(accountId: String, userId: String, dataPartner:String) {
+                    Log.d(TAG, "onAccountConnected: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
+                }
+
+                override fun onAccountUpdated(accountId: String, userId: String, dataPartner:String) {
+                    Log.d(TAG, "onAccountUpdated: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
+                }
+
+                override fun onAccountRemoved(accountId: String, userId: String, dataPartner:String) {
+                    Log.d(TAG, "onAccountRemoved: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
                 }
 
                 override fun onError(error: ArgyleErrorType) {
