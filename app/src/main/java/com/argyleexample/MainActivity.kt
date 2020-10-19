@@ -75,6 +75,11 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "onAccountRemoved: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
                 }
 
+                override fun onAccountError(accountId: String, userId: String, dataPartner: String
+                ) {
+                    Log.d(TAG, "onAccountError: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
+                }
+
                 override fun onError(error: ArgyleErrorType) {
                     Log.d(TAG, "onError: error: $error")
                 }
