@@ -14,7 +14,7 @@ import com.argyle.ArgyleErrorType
 private const val TAG = "MainActivity"
 
 private const val PLUGIN_KEY = "YOUR_PLUGIN_KEY"
-private const val API_HOST = "https://api-sandbox.argyle.io/v1/"
+private const val API_HOST = "https://api-sandbox.argyle.io/v1"
 
 private const val PREF_USER_TOKEN = "userToken"
 private const val PREF_USER_ID = "userId"

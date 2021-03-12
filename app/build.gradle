@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -31,7 +35,7 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.1.0"
 
 
-    implementation 'com.argyle:app:1.5.7'
+    implementation 'com.argyle:app:1.5.23'
 
 }
 
