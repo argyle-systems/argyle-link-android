@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val config = ArgyleConfig.Builder()
 
             .loginWith(PLUGIN_KEY, API_HOST, token)
-//            .dataPartners(arrayOf("uber", "deliv"))
+//            .linkItems(arrayOf("uber"))
             .setCallbackListener(object : Argyle.ArgyleResultListener {
 
                 override fun onTokenExpired(handler: (String) -> Unit) {
@@ -59,25 +59,25 @@ class MainActivity : AppCompatActivity() {
                     handler(token)
                 }
 
-                override fun onAccountCreated(accountId: String, userId: String, dataPartner:String) {
-                    Log.d(TAG, "onAccountCreated: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
+                override fun onAccountCreated(accountId: String, userId: String, linkItemId:String) {
+                    Log.d(TAG, "onAccountCreated: accountId: $accountId workerId: $userId linkItemId: $linkItemId")
                 }
 
-                override fun onAccountConnected(accountId: String, userId: String, dataPartner:String) {
-                    Log.d(TAG, "onAccountConnected: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
+                override fun onAccountConnected(accountId: String, userId: String, linkItemId:String) {
+                    Log.d(TAG, "onAccountConnected: accountId: $accountId workerId: $userId linkItemId: $linkItemId")
                 }
 
-                override fun onAccountUpdated(accountId: String, userId: String, dataPartner:String) {
-                    Log.d(TAG, "onAccountUpdated: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
+                override fun onAccountUpdated(accountId: String, userId: String, linkItemId:String) {
+                    Log.d(TAG, "onAccountUpdated: accountId: $accountId workerId: $userId linkItemId: $linkItemId")
                 }
 
-                override fun onAccountRemoved(accountId: String, userId: String, dataPartner:String) {
-                    Log.d(TAG, "onAccountRemoved: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
+                override fun onAccountRemoved(accountId: String, userId: String, linkItemId:String) {
+                    Log.d(TAG, "onAccountRemoved: accountId: $accountId workerId: $userId linkItemId: $linkItemId")
                 }
 
-                override fun onAccountError(accountId: String, userId: String, dataPartner: String
+                override fun onAccountError(accountId: String, userId: String, linkItemId: String
                 ) {
-                    Log.d(TAG, "onAccountError: accountId: $accountId workerId: $userId dataPartner: $dataPartner")
+                    Log.d(TAG, "onAccountError: accountId: $accountId workerId: $userId linkItemId: $linkItemId")
                 }
 
                 override fun onError(error: ArgyleErrorType) {
