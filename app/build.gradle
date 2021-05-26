@@ -35,7 +35,7 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.1.0"
 
 
-    implementation 'com.argyle:argyle-plugin-android-source:3.0.1'
+    implementation 'com.argyle:argyle-plugin-android-source:3.0.4'
 
 }
 
