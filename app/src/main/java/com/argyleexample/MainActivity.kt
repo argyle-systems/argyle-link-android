@@ -16,6 +16,9 @@ private const val TAG = "MainActivity"
 private const val PLUGIN_KEY = "YOUR_PLUGIN_KEY"
 private const val API_HOST = "https://api-sandbox.argyle.io/v1"
 
+//  https://argyle.com/docs/pay-distributions-guide/link-integration
+private const val YOUR_PD_CONFIG = "YOUR_PD_CONFIG"
+
 private const val PREF_USER_TOKEN = "userToken"
 private const val PREF_USER_ID = "userId"
 
@@ -52,6 +55,9 @@ class MainActivity : AppCompatActivity() {
 
             .loginWith(PLUGIN_KEY, API_HOST, token)
 //            .linkItems(arrayOf("uber"))
+//            .payDistributionConfig(YOUR_PD_CONFIG)
+//            .payDistributionItemsOnly(true)
+//            .payDistributionUpdateFlow(true)
             .setCallbackListener(object : Argyle.ArgyleResultListener {
 
                 override fun onTokenExpired(handler: (String) -> Unit) {
@@ -100,6 +106,29 @@ class MainActivity : AppCompatActivity() {
                 override fun onClose() {
                     Log.d(TAG, "onClose")
                 }
+
+                override fun onPayDistributionError(
+                    accountId: String,
+                    userId: String,
+                    linkItemId: String
+                ) {
+                    Log.d(
+                        TAG,
+                        "onPayDistributionError: accountId: $accountId userId: $userId linkItemId: $linkItemId"
+                    )
+                }
+
+                override fun onPayDistributionSuccess(
+                    accountId: String,
+                    userId: String,
+                    linkItemId: String
+                ) {
+                    Log.d(
+                        TAG,
+                        "onPayDistributionSuccess: accountId: $accountId userId: $userId linkItemId: $linkItemId"
+                    )
+                }
+
             })
             .build()
 
