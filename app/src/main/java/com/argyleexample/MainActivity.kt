@@ -15,7 +15,9 @@ private const val TAG = "MainActivity"
 
 private const val PLUGIN_KEY = "YOUR_PLUGIN_KEY"
 private const val API_HOST = "https://api-sandbox.argyle.io/v1"
-private const val SANDBOX_PD_CONFIG = "CiQAB/5leWkFzb1sQQwhtmjsha9Aszx6VmxgBSp0cuWf5r/51JASxQMAB1Zuy88nmHWGhyMsd2ENeeAXIU03wIzP3l1wOmBioMQ7Zeu9X/u1kHGNe81WGhN92crBQ8rM3clCTxPio/Ph2Tp5fXt85EG1X3j8VXfZHIdpySvqajU/t2SIfV40cP34WcOLUISkVHBDhYUmTSQJ2Yqnk3mf8Npq8xyGCOlPhWlAMO8i87ZN6TlBwqdfEiAS2/27Gch3jPIb1pRNuuNv5rFrliCFAdKSRSlkAgukDn5XtuyPTDPet6aEBT45W69TGHps5o/noS3NRjNy34/o2yYCvIH3ftwgwtHcrOhEtyJOUd/uqQFe5hHTg2mPdB8rrB/c4Fv0qz8WwaAUKGL3AgT+GvGobzbrAbis3laTJ3+kd7q3Hh7TsHGBUVlJQpDnF6Vf1G3rFMruxmh1P9X1j/cEoJm0UrYS9qfw0Km4CehcgJkZHOdpBCRGrA7FGBq6FVlamvFuGL/yJ4U5tJIyqVMC8LWFg2Xc5EQsGSEO5G1mDeI6Ug1/vcCUuxr4EcJkNnARErvdpJ8B6dl/YOKHrGb0OIgrb7gxlKd5EyyP3s0r04t1XKqP9Rt92KvGk6a5tMR7IfSHDtXMu7lLe7UHL8r+ahk="
+
+//  https://argyle.com/docs/pay-distributions-guide/link-integration
+private const val YOUR_PD_CONFIG = "YOUR_PD_CONFIG"
 
 private const val PREF_USER_TOKEN = "userToken"
 private const val PREF_USER_ID = "userId"
@@ -53,7 +55,9 @@ class MainActivity : AppCompatActivity() {
 
             .loginWith(PLUGIN_KEY, API_HOST, token)
 //            .linkItems(arrayOf("uber"))
-//            .payDistributionConfig(SANDBOX_PD_CONFIG)
+//            .payDistributionConfig(YOUR_PD_CONFIG)
+//            .payDistributionItemsOnly(true)
+//            .payDistributionUpdateFlow(true)
             .setCallbackListener(object : Argyle.ArgyleResultListener {
 
                 override fun onTokenExpired(handler: (String) -> Unit) {
