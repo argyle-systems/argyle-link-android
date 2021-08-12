@@ -129,6 +129,10 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
 
+                override fun onUIEvent(name: String, properties: Map<String, Any>) {
+                    Log.d(TAG, "onUIEvent: $name, properties: $properties")
+                }
+
             })
             .build()
 
