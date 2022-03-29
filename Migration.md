@@ -27,8 +27,6 @@ implementation 'com.argyle:argyle-plugin-android-source:<insert latest version n
 
 - If you are using pro-guard, make sure you have the most up-to-date Proguard rules which can be found in our [integration guide](https://github.com/argyle-systems/argyle-link-android#readme).
 
-
-
 ---
 ## Migrating from Link 3
 ### Updated configuration attribute
