@@ -1,9 +1,10 @@
-# Migrating to Link 4
+# Android SDK version upgrade guide
+
 ## Learn how to upgrade to the newest Link version.
 If you are looking to integrate Argyle Link for the first time navigate to [integration guide](https://github.com/argyle-systems/argyle-link-android#readme).
 
 - [Android SDK upgrade guide](#android-sdk-upgrade-guide)
-- [Migrating from Link 3](#migrating-from-link-3)
+- [Migrating to Link 4](#migrating-to-link-4)
 
 ---
 ## Android SDK upgrade guide
@@ -27,6 +28,10 @@ implementation 'com.argyle:argyle-plugin-android-source:<insert latest version n
 - If you are using pro-guard, make sure you have the most up-to-date Proguard rules which can be found in our [integration guide](https://github.com/argyle-systems/argyle-link-android#readme).
 
 ---
+# Migrating to Link 4
+
+f you're using a previous major version of Link and would like to migrate to the new version, please update the changed configuration parameters and then follow the usual [Android Link SDK version upgrade instruction](#upgrade-to-a-new-sdk-version) defined above.
+
 ## Migrating from Link 3
 ### Updated configuration attribute
 

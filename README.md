@@ -1,7 +1,7 @@
 # Argyle Android SDK example project
 Android Link SDK provides a way to integrate [Argyle Link](https://argyle.io/docs/argyle-link) into your Android app.
 
-If you are looking to update Argyle Link to the newest version, navigate to [upgrade guide](https://github.com/argyle-systems/argyle-link-android/blob/master/Migration.md).
+If you are looking to update Argyle Link to the newest version, navigate to [upgrade guide](https://github.com/argyle-systems/argyle-link-android/blob/master/UPGRADING.md).
 
 **The SDK supports API level 23 and above ([distribution stats](https://developer.android.com/about/dashboards)).**
 
