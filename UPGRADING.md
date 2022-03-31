@@ -30,26 +30,15 @@ implementation 'com.argyle:argyle-plugin-android-source:<insert latest version n
 ---
 # Migrating to Link 4
 
-f you're using a previous major version of Link and would like to migrate to the new version, please update the changed configuration parameters and then follow the usual [Android Link SDK version upgrade instruction](#upgrade-to-a-new-sdk-version) defined above.
+If you're using a previous major version of Link and would like to migrate to the new version, please update the changed configuration parameters and then follow the usual [Android Link SDK version upgrade instruction](#upgrade-to-a-new-sdk-version) defined above.
 
 ## Migrating from Link 3
-### Updated configuration attribute
 
-If you're using a previous version of Link and would like to migrate to the new version, please find below the single changed configuration attribute.
-
----
-
-**pluginKey: renamed**
-
-The property was renamed to `linkKey`.
+No configuration parameters changed and the usual [Android Link SDK version upgrade instruction](#upgrade-to-a-new-sdk-version) should be followed to upgrade to the newest version.
 
 ---
 
 ### Updated error code
-
-A name of the error code returned via `onError` callback is also changed to reflect the update of configuration attribute.
-
----
 
 [Link Initialization error](https://argyle.com/docs/developer-tools/link-initialization-errors#) **invalid_plugin_key: renamed**
 
