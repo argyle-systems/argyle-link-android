@@ -13,8 +13,8 @@ import com.argyle.ArgyleErrorType
 
 private const val TAG = "MainActivity"
 
-private const val PLUGIN_KEY = "YOUR_PLUGIN_KEY"
-private const val API_HOST = "https://api-sandbox.argyle.io/v1"
+private const val LINK_KEY = "YOUR_LINK_KEY"
+private const val API_HOST = "https://api-sandbox.argyle.com/v1"
 
 //  https://argyle.com/docs/pay-distributions-guide/link-integration
 private const val YOUR_PD_CONFIG = "YOUR_PD_CONFIG"
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         val config = ArgyleConfig.Builder()
 
-            .loginWith(PLUGIN_KEY, API_HOST, token)
+            .loginWith(LINK_KEY, API_HOST, token)
 //            .linkItems(arrayOf("uber"))
 //            .payDistributionConfig(YOUR_PD_CONFIG)
 //            .payDistributionItemsOnly(true)

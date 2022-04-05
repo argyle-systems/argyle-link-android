@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.argyleexample"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -37,7 +37,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
 
-    implementation 'com.argyle:argyle-plugin-android-source:3.3.0'
+    implementation 'com.argyle:argyle-plugin-android-source:3.10.0'
 
 }
 
