@@ -13,82 +13,23 @@ If you are looking to update Argyle Link to the newest version, navigate to [upg
 Our target configuration is currently set to the following:
 
 - `minSdkVersion = 23`
-- `compileSdkVersion = 30`
-- `targetSdkVersion = 30`
-- `Android Support Library = 28.0.0`
 - `Kotlin = 1.4.32`
 
-### 1. Adding the SDK dependency
+## 1. Add the SDK dependency
 ```
 dependencies {
-    implementation 'com.argyle:argyle-plugin-android-source:3.x.x'
+    implementation 'com.argyle:argyle-plugin-android-source:4.x.x'
 }
 ```
 
-### 2. Creating the SDK configuration
-```kotlin
-val config = ArgyleConfig.Builder()
-    .loginWith("YOUR_LINK_KEY", "https://api-sandbox.argyle.com/v1", "USER_TOKEN")
-    //.linkItems(arrayOf("lyft", "uber"))
-    .setCallbackListener(object : Argyle.ArgyleResultListener {
+## 2. Configure and integrate Link
+### 1. Access your Link API Key
+1. Log into your [Console](https://console.argyle.com/api-keys) instance
+2. Navigate to the [API Keys](https://console.argyle.com/api-keys) area under the Developer menu
+3. Copy your Sandbox or Production Link API Key for use in the next step
 
-        override fun onUserCreated(userToken: String, userId: String) {
-          Log.d("Result", "onUserCreated:  userId: $userId, userToken: $userToken")
-        }
-    
-        override fun onAccountCreated(accountId: String, userId: String, linkItemId: String) {
-          Log.d("Result", "onAccountCreated: accountId: $accountId, userId: $userId, linkItemId: $linkItemId")
-        }
-    
-        override fun onAccountConnected(accountId: String, userId: String, linkItemId: String) {
-          Log.d("Result", "onAccountConnected: accountId: $accountId, userId: $userId, linkItemId: $linkItemId")
-        }
-    
-        override fun onAccountUpdated(accountId: String, userId: String, linkItemId: String) {
-          Log.d("Result", "onAccountUpdated: accountId: $accountId, userId: $userId, linkItemId: $linkItemId")
-        }
-    
-        override fun onAccountRemoved(accountId: String, userId: String, linkItemId: String) {
-          Log.d("Result", "onAccountRemoved: accountId: $accountId, userId: $userId, linkItemId: $linkItemId")
-        }
-    
-        override fun onAccountError(accountId: String, userId: String, linkItemId: String) {
-          Log.d("Result", "onAccountError: accountId: $accountId, userId: $userId, linkItemId: $linkItemId")
-        }
-    
-        override fun onPayDistributionSuccess(accountId: String, userId: String, linkItemId: String) {
-          Log.d("Result", "onPayDistributionSuccess: accountId: $accountId, userId: $userId, linkItemId: $linkItemId")
-        }
-    
-        override fun onPayDistributionError(accountId: String, userId: String, linkItemId: String) {
-          Log.d("Result", "onPayDistributionError: accountId: $accountId, userId: $userId, linkItemId: $linkItemId")
-        }  
-    
-        override fun onError(error: ArgyleErrorType) {
-          Log.d("Result", "onError: error: $error")
-        }
-    
-        override fun onTokenExpired(handler: (String) -> Unit) {
-          handler("new_token")
-        }
-        
-        override fun onUIEvent(name: String, properties: Map<String, Any>) {
-          Log.d("Result", "onUIEvent: $name, properties: $properties")
-        }
-    
-        override fun onClose() {
-          Log.d("Result", "onClose")
-        }
-    })
-    .build()
-```
+### 2. Utilize user tokens
+For successful implementation you need to make sure to utilize user tokens correctly. Learn how to do it in Argyle [returning user experience guide](https://argyle.com/docs/products/returning-users-experience#suggested-flow-for-user-token-usage) before continuing onto the next step.
 
-### 3. Starting the flow
-```kotlin
-Argyle.instance.init(config);
-Argyle.instance.startSDK(this)
-```
-
-#### Closing  Link programmatically
-
-Normally, Link is closed by the user but it can also be closed by calling `Argyle.instance.close()`
+### 3. Integrate Link
+See [Example](https://github.com/argyle-systems/argyle-link-android/blob/master/app/src/main/java/com/argyleexample/MainActivity.kt) for sample implementation.

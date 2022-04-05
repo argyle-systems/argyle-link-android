@@ -30,11 +30,7 @@ implementation 'com.argyle:argyle-plugin-android-source:<insert latest version n
 ---
 # Migrating to Link 4
 
-If you're using a previous major version of Link and would like to migrate to the new version, please update the changed configuration parameters and then follow the usual [Android Link SDK version upgrade instruction](#upgrade-to-a-new-sdk-version) defined above.
-
-## Migrating from Link 3
-
-No configuration parameters changed and the usual [Android Link SDK version upgrade instruction](#upgrade-to-a-new-sdk-version) should be followed to upgrade to the newest version.
+There are no configuration parameters changed if you are using the previous version of Link (Link 3). The usual [Android Link SDK version upgrade instruction](#upgrade-to-a-new-sdk-version) should be followed to upgrade to the newest version.
 
 ---
 
