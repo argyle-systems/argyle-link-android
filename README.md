@@ -29,7 +29,7 @@ dependencies {
 3. Copy your Sandbox or Production Link API Key for use in the next step
 
 ### 2. Utilize user tokens
-For successful implementation you need to make sure to utilize user tokens correctly. Learn how to do it in Argyle [returning user experience guide](https://argyle.com/docs/products/returning-users-experience#suggested-flow-for-user-token-usage) before continuing onto the next step.
+For successful implementation you need to make sure to utilize user tokens correctly. Learn how to do it in Argyle [returning user experience guide](https://argyle.com/docs/products/returning-users-experience) before continuing onto the next step.
 
 ### 3. Integrate Link
 See [Example](https://github.com/argyle-systems/argyle-link-android/blob/master/app/src/main/java/com/argyleexample/MainActivity.kt) for sample implementation.
