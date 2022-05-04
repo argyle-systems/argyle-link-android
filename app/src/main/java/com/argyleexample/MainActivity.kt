@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.preference.PreferenceManager
 import android.util.Log
+import android.widget.Button
 
 import com.argyle.ArgyleConfig
 
-import kotlinx.android.synthetic.main.main_activity.*
 import com.argyle.Argyle
 import com.argyle.ArgyleErrorType
 
@@ -29,11 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         configureArgyleSdk(null)
 
+        val newWorkerButton = findViewById<Button>(R.id.newWorkerButton)
         newWorkerButton?.setOnClickListener {
             Argyle.instance.config.userToken = null // nullify user token
             openSdk()
         }
 
+        val existingButton = findViewById<Button>(R.id.existingButton)
         existingButton?.setOnClickListener {
             val preferences = PreferenceManager.getDefaultSharedPreferences(this)
             val token = preferences.getString(PREF_USER_TOKEN, null)
