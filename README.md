@@ -13,7 +13,7 @@ If you are looking to update Argyle Link to the newest version, navigate to [upg
 Our target configuration is currently set to the following:
 
 - `minSdkVersion = 23`
-- `Kotlin = 1.4.32`
+- `Kotlin = 1.6.21`
 
 ## 1. Add the SDK dependency
 
