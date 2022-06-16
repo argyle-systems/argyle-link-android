@@ -1,4 +1,4 @@
-# Argyle Android SDK example project
+# Argyle Android SDK
 Android Link SDK provides a way to integrate [Argyle Link](https://argyle.io/docs/argyle-link) into your Android app.
 
 If you are looking to update Argyle Link to the newest version, navigate to [upgrade guide](https://github.com/argyle-systems/argyle-link-android/blob/master/UPGRADING.md).
@@ -16,6 +16,9 @@ Our target configuration is currently set to the following:
 - `Kotlin = 1.4.32`
 
 ## 1. Add the SDK dependency
+
+![jitpack](https://img.shields.io/jitpack/v/github/argyle-systems/argyle-plugin-android-source?style=for-the-badge)
+
 ```
 dependencies {
     implementation 'com.argyle:argyle-plugin-android-source:4.x.x'
