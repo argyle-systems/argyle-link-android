@@ -9,8 +9,9 @@ import com.argyle.ArgyleConfig
 import com.argyle.ArgyleErrorType
 import com.argyleexample.databinding.MainActivityBinding
 
-private const val LINK_KEY = "017cf0de-aac1-e1c4-b86c-7d9dffbfc8ed"
-private const val API_HOST = "https://api-sandbox.argyle.com/v1/"
+private const val LINK_KEY = "[YOUR LINK KEY]"
+private const val SANDBOX_API_HOST = "https://api-sandbox.argyle.com/v1/"
+private const val PRODUCTION_API_HOST = "https://api.argyle.com/v1/"
 
 //  https://argyle.com/docs/pay-distributions-guide/link-integration
 private const val YOUR_PD_CONFIG = "YOUR_PD_CONFIG"
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity(), Argyle.ArgyleResultListener {
     }
 
     private fun startLink(returning_user_token: String?) {
-        val linkConfig = ArgyleConfig.Builder().loginWith(LINK_KEY, API_HOST)
+        val linkConfig = ArgyleConfig.Builder().loginWith(LINK_KEY, SANDBOX_API_HOST)
             .setCallbackListener(this).build()
 
         returning_user_token?.let {
