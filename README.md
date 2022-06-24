@@ -42,7 +42,7 @@ dependencies {
 1. Log into your [Console](https://console.argyle.com/api-keys) instance
 2. Navigate to the [API Keys](https://console.argyle.com/api-keys) area under the Developer menu
 3. Copy your Sandbox or Production Link API Key for use in the next step
-4. Initialise the SDK with your Link API Key  and start the SDK
+4. [Initialise the SDK](https://github.com/argyle-systems/argyle-link-android/blob/e8e507d7169e1226804b3b744761f67c3d89f28d/app/src/main/java/com/argyleexample/MainActivity.kt#L57) with your Link API Key and then call the [startSdk](https://github.com/argyle-systems/argyle-link-android/blob/e8e507d7169e1226804b3b744761f67c3d89f28d/app/src/main/java/com/argyleexample/MainActivity.kt#L58) method.
 
 For a more detailed look at how to integrate Link, please review the  [Example App](https://github.com/argyle-systems/argyle-link-android/blob/master/app/src/main/java/com/argyleexample/MainActivity.kt).
 
