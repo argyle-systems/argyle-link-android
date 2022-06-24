@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), Argyle.ArgyleResultListener {
         setContentView(binding.root)
 
         binding.newWorkerButton.setOnClickListener {
-            startLink(returning_user_token = null)
+            startLink(returningUserToken = null)
         }
 
         binding.existingButton.setOnClickListener {
@@ -42,15 +42,15 @@ class MainActivity : AppCompatActivity(), Argyle.ArgyleResultListener {
                 return@setOnClickListener
             }
 
-            startLink(returning_user_token = token)
+            startLink(returningUserToken = token)
         }
     }
 
-    private fun startLink(returning_user_token: String?) {
+    private fun startLink(returningUserToken: String?) {
         val linkConfig = ArgyleConfig.Builder().loginWith(LINK_KEY, SANDBOX_API_HOST)
             .setCallbackListener(this).build()
 
-        returning_user_token?.let {
+        returningUserToken?.let {
             linkConfig.userToken = it
         } ?: run { linkConfig.userToken = null }
 
