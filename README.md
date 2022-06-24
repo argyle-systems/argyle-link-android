@@ -26,7 +26,7 @@ If you are looking to update Argyle Link to the newest version, navigate to the 
 Our SDK can be integrated into your application in 2 simple steps.
 
 ### Installation  <a name="install"></a>
-Add `argyle-plugin-android-source` to your `build.gradle` dependancies.
+Add `argyle-plugin-android-source` to your `build.gradle` dependencies.
 ```  
 dependencies {  
     implementation 'com.argyle:argyle-plugin-android-source:4.x.x'
