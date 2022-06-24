@@ -13,7 +13,7 @@ private const val LINK_KEY = "[YOUR LINK KEY]"
 private const val SANDBOX_API_HOST = "https://api-sandbox.argyle.com/v1/"
 private const val PRODUCTION_API_HOST = "https://api.argyle.com/v1/"
 
-//  https://argyle.com/docs/pay-distributions-guide/link-integration
+//  https://docs.argyle.com/guides/docs/pay-distribution-overview
 private const val YOUR_PD_CONFIG = "YOUR_PD_CONFIG"
 
 private const val PREF_USER_TOKEN = "userToken"
