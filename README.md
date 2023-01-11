@@ -1,5 +1,5 @@
 # Argyle Android SDK
-![jitpack](https://img.shields.io/jitpack/v/github/argyle-systems/argyle-plugin-android-source?style=for-the-badge)
+![jitpack](https://maven-badges.herokuapp.com/maven-central/com.argyle/argyle-link-android/badge.svg)
 
 The Android Link SDK provides a quick and easy way to integrate [Argyle Link](https://argyle.io/docs/argyle-link) into your Android app.
 
