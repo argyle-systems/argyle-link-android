@@ -25,6 +25,8 @@ If you are looking to update Argyle Link to the newest version, navigate to the 
 ## Adding it to your project <a name="installation"></a>
 Our SDK can be integrated into your application in 2 simple steps.
 
+**Note:** starting with `4.7.3` we dropped JitPack as means of distribution in favor of [Maven Central](https://central.sonatype.dev/).
+
 ### Installation  <a name="install"></a>
 Add `argyle-plugin-android-source` to your `build.gradle` dependencies.
 ```  
