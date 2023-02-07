@@ -31,7 +31,7 @@ Our SDK can be integrated into your application in 2 simple steps.
 Add `argyle-plugin-android-source` to your `build.gradle` dependencies.
 ```  
 dependencies {  
-    implementation 'com.argyle:argyle-plugin-android-source:4.x.x'
+   implementation 'com.argyle:argyle-link-android:4.x.x'
 }  
 ```  
 **Important:** When using tools like Proguard to obfuscate your code, to avoid unexpected runtime issues please make sure to exclude Android Link SDK package (`com.argyle.*`) from the process. You can do this by adding this line to your `proguard-rules.pro` file.
