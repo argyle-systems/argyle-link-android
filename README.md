@@ -28,7 +28,7 @@ Our SDK can be integrated into your application in 2 simple steps.
 **Note:** starting with `4.7.3` we dropped JitPack as means of distribution in favor of [Maven Central](https://central.sonatype.dev/).
 
 ### Installation  <a name="install"></a>
-Add `argyle-plugin-android-source` to your `build.gradle` dependencies.
+Add `argyle-link-android` to your `build.gradle` dependencies.
 ```  
 dependencies {  
    implementation 'com.argyle:argyle-link-android:4.x.x'
