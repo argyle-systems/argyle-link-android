@@ -3,21 +3,17 @@ package com.argyleexample
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import com.argyle.ArgyleLink
 import com.argyle.LinkConfig
 import com.argyleexample.databinding.MainActivityBinding
-import com.argyleexample.network.LinkService
-import com.argyleexample.network.request.UserTokenRequest
-import kotlinx.coroutines.launch
 
-private const val PREF_USER_ID = "userId"
+// TODO: Replace with real values
+private const val LINK_KEY = "YOUR_LINK_KEY"     // Get it from https://console.argyle.com/link-key
+private const val USER_TOKEN = "YOUR_USER_TOKEN" // Should be fetched and provided by your own backend API https://docs.argyle.com/guides/reference/users
+private const val SANDBOX = true
 
 class MainActivity : AppCompatActivity() {
 
-    private val linkService = LinkService.create()
-    private val preferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
     private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,44 +22,16 @@ class MainActivity : AppCompatActivity() {
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.newUserFlowButton.setOnClickListener {
-            createNewUserAndStartLink()
-        }
-
-        binding.existingUserFlowButton.setOnClickListener {
-            val userId = preferences.getString(PREF_USER_ID, null)
-            if (userId == null) {
-                toast("Create a user first")
-                return@setOnClickListener
-            }
-            createUserTokenAndStartLink(userId)
+        binding.startButton.setOnClickListener {
+            startLink()
         }
     }
 
-    private fun toast(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun createNewUserAndStartLink() {
-        lifecycleScope.launch {
-            val user = linkService.createUser()
-            preferences.edit().putString(PREF_USER_ID, user.id).apply()
-            startLink(user.token)
-        }
-    }
-
-    private fun createUserTokenAndStartLink(userId: String) {
-        lifecycleScope.launch {
-            val token = linkService.createUserToken(UserTokenRequest(userId)).access
-            startLink(token)
-        }
-    }
-
-    private fun startLink(userToken: String) {
+    private fun startLink() {
         val linkConfig = LinkConfig(
-            sandbox = LinkConstants.SANDBOX,
-            linkKey = LinkConstants.LINK_KEY,
-            userToken = userToken
+            sandbox = SANDBOX,
+            linkKey = LINK_KEY,
+            userToken = USER_TOKEN
         ).apply {
             // accountId = "USER_ACCOUNT_ID" // Specify to take the user directly to the account
             // customizationId = "00000000"  // Specify to use customization https://docs.argyle.com/guides/docs/customize
@@ -89,5 +57,9 @@ class MainActivity : AppCompatActivity() {
             onUIEvent = { toast("onUIEvent") }
         }
         ArgyleLink.start(this, linkConfig)
+    }
+
+    private fun toast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 }
