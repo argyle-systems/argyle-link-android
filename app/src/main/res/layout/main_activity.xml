@@ -26,35 +26,19 @@
             android:src="@drawable/linklogo"/>
 
     <Button
-            android:id="@+id/newWorkerButton"
+            android:id="@+id/start_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="32dp"
             android:background="?attr/selectableItemBackground"
-            android:text="New User Flow"
-            android:textAllCaps="false"
+            android:text="Start"
             android:textColor="#4c7cda"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-            android:id="@+id/existingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:text="Returning User Flow"
-            android:textAllCaps="false"
-            android:textColor="#4c7cda"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newWorkerButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

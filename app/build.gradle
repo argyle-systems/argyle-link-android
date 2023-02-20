@@ -5,16 +5,16 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    namespace 'com.argyleexample'
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.argyleexample"
-        minSdkVersion 23
-        targetSdkVersion 31
+        minSdk 26
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.debug
     }
 
     buildTypes {
@@ -25,7 +25,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = '1.8'
     }
 
     buildFeatures {
@@ -33,22 +33,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "androidx.preference:preference-ktx:1.2.0"
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
-
-    implementation 'com.argyle:argyle-link-android:4.7.3'
+    implementation 'com.argyle:argyle-link-android:5.0.0-beta1'
 
     testImplementation 'junit:junit:4.13.2'
 }
