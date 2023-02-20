@@ -3,24 +3,21 @@ package com.argyleexample
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import com.argyle.Argyle
-import com.argyle.ArgyleConfig
-import com.argyle.ArgyleErrorType
+import com.argyle.ArgyleLink
+import com.argyle.LinkConfig
 import com.argyleexample.databinding.MainActivityBinding
+import com.argyleexample.network.LinkService
+import com.argyleexample.network.request.UserTokenRequest
+import kotlinx.coroutines.launch
 
-private const val LINK_KEY = "[YOUR LINK KEY]"
-private const val SANDBOX_API_HOST = "https://api-sandbox.argyle.com/v1/"
-private const val PRODUCTION_API_HOST = "https://api.argyle.com/v1/"
-
-//  https://docs.argyle.com/guides/docs/pay-distribution-overview
-private const val YOUR_PD_CONFIG = "YOUR_PD_CONFIG"
-
-private const val PREF_USER_TOKEN = "userToken"
 private const val PREF_USER_ID = "userId"
 
-class MainActivity : AppCompatActivity(), Argyle.ArgyleResultListener {
+class MainActivity : AppCompatActivity() {
 
+    private val linkService = LinkService.create()
+    private val preferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
     private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,95 +26,68 @@ class MainActivity : AppCompatActivity(), Argyle.ArgyleResultListener {
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.newWorkerButton.setOnClickListener {
-            startLink(returningUserToken = null)
+        binding.newUserFlowButton.setOnClickListener {
+            createNewUserAndStartLink()
         }
 
-        binding.existingButton.setOnClickListener {
-            val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-            val token = preferences.getString(PREF_USER_TOKEN, null)
-
-            if (token == null) {
-                Toast.makeText(this@MainActivity, "Create a user first", Toast.LENGTH_SHORT).show()
+        binding.existingUserFlowButton.setOnClickListener {
+            val userId = preferences.getString(PREF_USER_ID, null)
+            if (userId == null) {
+                toast("Create a user first")
                 return@setOnClickListener
             }
-
-            startLink(returningUserToken = token)
+            createUserTokenAndStartLink(userId)
         }
     }
 
-    private fun startLink(returningUserToken: String?) {
-        val linkConfig = ArgyleConfig.Builder().loginWith(LINK_KEY, SANDBOX_API_HOST)
-            .setCallbackListener(this).build()
-
-        returningUserToken?.let {
-            linkConfig.userToken = it
-        } ?: run { linkConfig.userToken = null }
-
-        Argyle.instance.init(linkConfig)
-        Argyle.instance.startSDK(this)
+    private fun toast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onTokenExpired(handler: (String) -> Unit) {
-        val token = "token"
-        handler(token)
-    }
-
-    override fun onAccountCreated(accountId: String, userId: String, linkItemId: String) {
-        Toast.makeText(this@MainActivity, "onAccountCreated", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onAccountConnected(accountId: String, userId: String, linkItemId: String) {
-        Toast.makeText(this@MainActivity, "onAccountConnected", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onAccountUpdated(accountId: String, userId: String, linkItemId: String) {
-        Toast.makeText(this@MainActivity, "onAccountUpdated", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onAccountRemoved(accountId: String, userId: String, linkItemId: String) {
-        Toast.makeText(this@MainActivity, "onAccountRemoved", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onAccountError(accountId: String, userId: String, linkItemId: String) {
-        Toast.makeText(this@MainActivity, "onAccountError", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onError(error: ArgyleErrorType) {
-        Toast.makeText(this@MainActivity, "onError", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onUserCreated(userToken: String, userId: String) {
-        PreferenceManager.getDefaultSharedPreferences(applicationContext).edit().apply {
-            putString(PREF_USER_TOKEN, userToken)
-            putString(PREF_USER_ID, userId)
-            apply()
-            Toast.makeText(this@MainActivity, "onUserCreated", Toast.LENGTH_SHORT).show()
+    private fun createNewUserAndStartLink() {
+        lifecycleScope.launch {
+            val user = linkService.createUser()
+            preferences.edit().putString(PREF_USER_ID, user.id).apply()
+            startLink(user.token)
         }
     }
 
-    override fun onClose() {
-        Toast.makeText(this@MainActivity, "onClose", Toast.LENGTH_SHORT).show()
+    private fun createUserTokenAndStartLink(userId: String) {
+        lifecycleScope.launch {
+            val token = linkService.createUserToken(UserTokenRequest(userId)).access
+            startLink(token)
+        }
     }
 
-    override fun onPayDistributionError(
-        accountId: String,
-        userId: String,
-        linkItemId: String
-    ) {
-        Toast.makeText(this@MainActivity, "onPayDistributionError", Toast.LENGTH_SHORT).show()
-    }
+    private fun startLink(userToken: String) {
+        val linkConfig = LinkConfig(
+            sandbox = LinkConstants.SANDBOX,
+            linkKey = LinkConstants.LINK_KEY,
+            userToken = userToken
+        ).apply {
+            // accountId = "USER_ACCOUNT_ID" // Specify to take the user directly to the account
+            // customizationId = "00000000"  // Specify to use customization https://docs.argyle.com/guides/docs/customize
+            // ddsConfig = "YOUR_DDS_CONFIG" // Specify to use direct deposit switching https://docs.argyle.com/guides/docs/direct-deposit-switching
+            // items = listOf("item_000001000", "item_000001022")  // Specify to limit search to the specified items only
 
-    override fun onPayDistributionSuccess(
-        accountId: String,
-        userId: String,
-        linkItemId: String
-    ) {
-        Toast.makeText(this@MainActivity, "onPayDistributionSuccess", Toast.LENGTH_SHORT).show()
+            onTokenExpired = { handler ->
+                val newToken = "YOUR_NEW_TOKEN"
+                handler(newToken)
+            }
+            onAccountCreated = { toast("onAccountCreated") }
+            onAccountConnected = { toast("onAccountConnected") }
+            onAccountRemoved = { toast("onAccountRemoved") }
+            onAccountError = { toast("onAccountError") }
+            onCantFindItemClicked = { toast("onCantFindItemClicked") }
+            onClose = { toast("onClose") }
+            onDDSError = { toast("onDDSError") }
+            onDDSSuccess = { toast("onDDSSuccess") }
+            onDocumentsSubmitted = { toast("onDocumentsSubmitted") }
+            onError = { toast("onError") }
+            onExitIntroClicked = { toast("onExitIntroClicked") }
+            onFormSubmitted = { toast("onFormSubmitted") }
+            onUIEvent = { toast("onUIEvent") }
+        }
+        ArgyleLink.start(this, linkConfig)
     }
-
-    override fun onUIEvent(name: String, properties: Map<String, Any>) {
-        Toast.makeText(this@MainActivity, "onUIEvent", Toast.LENGTH_SHORT).show()
-    }
-
 }

@@ -26,7 +26,7 @@
             android:src="@drawable/linklogo"/>
 
     <Button
-            android:id="@+id/newWorkerButton"
+            android:id="@+id/new_user_flow_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-            android:id="@+id/existingButton"
+            android:id="@+id/existing_user_flow_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -54,7 +54,7 @@
             android:textColor="#4c7cda"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newWorkerButton" />
+            app:layout_constraintTop_toBottomOf="@+id/new_user_flow_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

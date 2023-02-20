@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.argyleexample"
-        minSdk 23
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -43,7 +43,11 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.preference:preference-ktx:1.2.0"
 
-    implementation 'com.argyle:argyle-link-android:4.7.3'
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    implementation 'com.argyle:argyle-link-android:5.0.0-beta1'
 
     testImplementation 'junit:junit:4.13.2'
 }
