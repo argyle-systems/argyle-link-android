@@ -1,52 +1,94 @@
 # Argyle Android SDK
-![jitpack](https://maven-badges.herokuapp.com/maven-central/com.argyle/argyle-link-android/badge.svg)
 
-The Android Link SDK provides a quick and easy way to integrate [Argyle Link](https://argyle.io/docs/argyle-link) into your Android app.
+---
 
-For detailed instructions on how to setup your Android integration, navigate to the :blue_book: [Integration guide](https://docs.argyle.com/guides/docs/android) or checkout the :file_folder: [Link Reference](https://docs.argyle.com/guides/reference/link-reference-overview).
+Argyle’s Android Link SDK provides a way to integrate [Link](https://docs.argyle.com/guides/docs/argyle-link-overview) into your Android app.
 
-If you are looking to update Argyle Link to the newest version, navigate to the [upgrade guide](https://github.com/argyle-systems/argyle-link-android/blob/master/UPGRADING.md).
+First-time installation instructions are below. To update versions, visit our [upgrade guide](https://github.com/argyle-systems/argyle-link-android/blob/master/UPGRADING.md).
 
+**Requirements:**
 
-# Table of contents
-- [Requirements](#requirements)
-- [Adding it to your project](#installation)
-    - [Installation](#install)
-    - [Configure and Start](#configure)
-- [User Tokens](#usertokens)
+- Android 8.0 (API level 26) and above
+- Kotlin `1.7.10+`
+- Android Gradle Plugin `7.2+`
+- Gradle `7.2+`
 
-## Requirements <a name="requirements"></a>
+## Installing the SDK
 
-- Android 6.0 (API Level 23) and above
-- Kotlin `1.6.21+`
-- Android Gradle Plugin `7.1.3+`
-- Gradle `7.2+`
+---
 
-## Adding it to your project <a name="installation"></a>
-Our SDK can be integrated into your application in 2 simple steps.
+1. Add the following line within the dependencies of your `build.gradle` [configuration file](https://developer.android.com/studio/build#top-level):
 
-**Note:** starting with `4.7.3` we dropped JitPack as means of distribution in favor of [Maven Central](https://central.sonatype.dev/).
-
-### Installation  <a name="install"></a>
-Add `argyle-link-android` to your `build.gradle` dependencies.
-```  
+```kotlin
 dependencies {  
-   implementation 'com.argyle:argyle-link-android:4.x.x'
-}  
-```  
-**Important:** When using tools like Proguard to obfuscate your code, to avoid unexpected runtime issues please make sure to exclude Android Link SDK package (`com.argyle.*`) from the process. You can do this by adding this line to your `proguard-rules.pro` file.
-```  
--keep class com.argyle. { *; }  
-```  
+   implementation 'com.argyle:argyle-link-android:5.x.x'
+}
+```
 
-### Configure and Start  <a name="configure"></a>
+1. [Sync your Android project](https://developer.android.com/studio/build#sync-files) to import the build configuration changes
 
-1. Log into your [Console](https://console.argyle.com/api-keys) instance
-2. Navigate to the [API Keys](https://console.argyle.com/api-keys) area under the Developer menu
-3. Copy your Sandbox or Production Link API Key for use in the next step
-4. [Initialise the SDK](https://github.com/argyle-systems/argyle-link-android/blob/e8e507d7169e1226804b3b744761f67c3d89f28d/app/src/main/java/com/argyleexample/MainActivity.kt#L57) with your Link API Key and then call the [startSdk](https://github.com/argyle-systems/argyle-link-android/blob/e8e507d7169e1226804b3b744761f67c3d89f28d/app/src/main/java/com/argyleexample/MainActivity.kt#L58) method.
+### Notes
 
-For a more detailed look at how to integrate Link, please review the  [Example App](https://github.com/argyle-systems/argyle-link-android/blob/master/app/src/main/java/com/argyleexample/MainActivity.kt).
+- Starting with Link `4.7.3` we dropped JitPack as means of distribution in favor of [Maven Central](https://central.sonatype.dev/).
+- If you are using tools like ProGuard to obfuscate your code…
+    - Make sure to exclude the Link SDK package `com.argyle.*`
+    - For example, add the following line to the `proguard-rules.pro` file of your ProGuard configuration:
+        
+        ```
+        -keep class com.argyle. { *; }
+        ```
+        
 
-## User Tokens <a name="usertokens"></a>
-For successful implementation you need to make sure to utilize user tokens correctly. Learn how to do it in Argyle [returning user experience guide](https://argyle.com/docs/products/returning-users-experience) before continuing onto the next step.  
+## Implementing Link
+
+---
+
+1. Log-in to Console and retrieve a copy of your [Link key](https://console.argyle.com/link-key)
+2. Create a user token:
+- **New users**
+    1. Create a new user by sending a **POST** to the [users endpoint](https://docs.argyle.com/guides/reference/create-a-user) of the Argyle API
+    2. The response payload will include an `id` and `user_token`
+    3. Save the `id` for quickly creating user tokens for this user in the future
+    4. Initialize Link by passing the `user_token` as the value for the `userToken` parameter
+- **Returning users**
+    1. Send a **POST** request to the [user-tokens endpoint](https://docs.argyle.com/guides/reference/create-a-user-token) of the Argyle API
+        - Include the `id` of the user in the request body as a JSON object in the format `{"user": "<id>"}`
+    2. A `user_token` will be included in the response payload
+    3. Initialize Link by passing the `user_token` as the value for the `userToken` parameter
+1. Initialize Link using the Link key and user token. 
+
+<aside>
+ℹ️ Make sure the Link key matches the environment of the `sandbox` parameter.
+
+</aside>
+
+Example Link initialization for Android:
+
+```kotlin
+val config = LinkConfig(
+    linkKey = "YOUR_LINK_KEY",
+    userToken = "USER_TOKEN",
+    sandbox = true // Set to false for production environment.
+)
+// (Optional) Limit Link search to these Items:
+config.items = listOf("item_000001422", "item_000025742")
+// (Optional) Callback examples:
+config.onAccountConnected = { data ->
+    Log.d("Result", "onAccountConnected $data")
+}
+config.onAccountError = { data ->
+    Log.d("Result", "onAccountError $data")
+}
+config.onDDSSuccess = { data ->
+    Log.d("Result", "onDDSSuccess $data")
+}
+config.onDDSError = { data ->
+    Log.d("Result", "onDDSError $data")
+}
+config.onTokenExpired = { handler ->
+		// generate your new token here
+    // handler(newToken)
+}
+
+ArgyleLink.start(context, config)
+```
