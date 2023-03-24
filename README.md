@@ -1,6 +1,6 @@
 # Argyle Android SDK
 
----
+![jitpack](https://maven-badges.herokuapp.com/maven-central/com.argyle/argyle-link-android/badge.svg)
 
 Argyle’s Android Link SDK provides a way to integrate [Link](https://docs.argyle.com/guides/docs/argyle-link-overview) into your Android app.
 
@@ -15,7 +15,6 @@ First-time installation instructions are below. To update versions, visit our [u
 
 ## Installing the SDK
 
----
 
 1. Add the following line within the dependencies of your `build.gradle` [configuration file](https://developer.android.com/studio/build#top-level):
 
@@ -41,7 +40,6 @@ dependencies {
 
 ## Implementing Link
 
----
 
 1. Log-in to Console and retrieve a copy of your [Link key](https://console.argyle.com/link-key)
 2. Create a user token:
