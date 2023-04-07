@@ -42,7 +42,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.argyle:argyle-link-android:5.0.0-beta1'
+    implementation 'com.argyle:argyle-link-android:5.0.0'
 
     testImplementation 'junit:junit:4.13.2'
 }
