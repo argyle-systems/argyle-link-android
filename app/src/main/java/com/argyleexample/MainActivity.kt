@@ -8,7 +8,6 @@ import com.argyle.LinkConfig
 import com.argyleexample.databinding.MainActivityBinding
 
 // TODO: Replace with real values
-private const val LINK_KEY = "YOUR_LINK_KEY"     // Get it from https://console.argyle.com/link-key
 private const val USER_TOKEN = "YOUR_USER_TOKEN" // Should be fetched and provided by your own backend API https://docs.argyle.com/guides/reference/users
 private const val SANDBOX = true
 
@@ -30,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private fun startLink() {
         val linkConfig = LinkConfig(
             sandbox = SANDBOX,
-            linkKey = LINK_KEY,
             userToken = USER_TOKEN
         ).apply {
             // accountId = "USER_ACCOUNT_ID" // Specify to take the user directly to the account
@@ -52,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             onDDSSuccess = { toast("onDDSSuccess") }
             onDocumentsSubmitted = { toast("onDocumentsSubmitted") }
             onError = { toast("onError") }
-            onExitIntroClicked = { toast("onExitIntroClicked") }
             onFormSubmitted = { toast("onFormSubmitted") }
             onUIEvent = { toast("onUIEvent") }
         }
