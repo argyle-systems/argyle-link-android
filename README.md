@@ -1,7 +1,5 @@
 # Argyle Android SDK
 
-![jitpack](https://maven-badges.herokuapp.com/maven-central/com.argyle/argyle-link-android/badge.svg)
-
 Argyle’s Android Link SDK provides a way to integrate [Link](https://argyle.com/docs/link/overview) into your Android app.
 
 **Requirements:**
